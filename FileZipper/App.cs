@@ -14,9 +14,8 @@
         private readonly Io io;
 
         private NameValueCollection settings;
-
-        private string sourceDirectory;
         private CompressionLevel compressionLevel;
+        private string sourceDirectory;
         private string destinationDirectory;
 
         public App(Io io)
@@ -27,8 +26,16 @@
 
         public void Run()
         {
-            this.ZipFolders();
-            this.io.Write("All done! - Press any key to exit.", Colors.Green);
+            try
+            {
+                this.ZipFolders();
+                this.io.Write("All done! - Press any key to exit.", Colors.Green);
+            }
+            catch (Exception ex)
+            {
+                this.io.Write("Error: " + ex.Message, Colors.Red);
+            }
+
             this.io.Read();
         }
 
@@ -50,10 +57,10 @@
 
                 this.io.Write($"Zipping: \"{folderName}\"...", Colors.Default, false);
 
-                using (ZipFile zip = new ZipFile())
+                using (var zip = new ZipFile())
                 {
                     zip.AddDirectory(dir, folderName);
-                    zip.CompressionLevel = CompressionLevel.BestSpeed;
+                    zip.CompressionLevel = this.compressionLevel;
 
                     if (bool.Parse(this.settings["IncludeComment"]))
                     {

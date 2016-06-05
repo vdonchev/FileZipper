@@ -2,7 +2,6 @@
 {
     using System;
     using IO;
-    using Utils;
 
     public static class FileZipperMain
     {

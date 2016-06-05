@@ -50,9 +50,9 @@
                 }
 
                 var folderName = Helper.GetFolderName(dir);
-                var md5Name = Helper.ToAlphaNumberc(folderName);
+                var fiendlyName = Helper.ToAlphaNumberc(folderName);
 
-                var zippedFilePath = this.GenerateFilename(md5Name);
+                var zippedFilePath = this.GenerateFilename(fiendlyName);
                 this.ValidateFileDoesNotExist(zippedFilePath);
 
                 this.io.Write($"Zipping: \"{folderName}\"...", Colors.Default, false);
@@ -93,7 +93,7 @@
 
         private void InitializeSettings()
         {
-            this.io.Write("Select source folder");
+            this.io.Write("Select source folder:");
             this.sourceDirectory = Helper.SelectFolder();
 
             this.ReadSettingsFile();
@@ -110,6 +110,7 @@
             }
             else
             {
+                this.io.Write("Select output folder:");
                 this.destinationDirectory = Helper.SelectFolder();
             }
 

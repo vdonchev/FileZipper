@@ -102,11 +102,7 @@
 
             if (bool.Parse(this.settings["DefaultDestination"]))
             {
-                this.destinationDirectory = 
-                    this.sourceDirectory + 
-                    Path.DirectorySeparatorChar +
-                    this.settings["DefaultDestinationName"] +
-                    Path.DirectorySeparatorChar;
+                this.destinationDirectory = this.settings["DefaultDestinationName"];
             }
             else
             {
